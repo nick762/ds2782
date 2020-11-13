@@ -1,0 +1,21 @@
+######################################
+# Syntax Coloring Map For STEND
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+STEND	KEYWORD1	STEND
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+_readVoltage		KEYWORD2
+_readCurrent		KEYWORD2
+_readTemperature	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
