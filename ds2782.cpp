@@ -6,7 +6,7 @@ int DS2782::_readVoltage(){
   Wire.beginTransmission(dsAddr);
   Wire.write(REG_VOLTAGE_DS);
   Wire.endTransmission();
-  Wire.requestFrom(Addr, 1, true);
+  Wire.requestFrom(dsAddr, 1, true);
   registerValue = Wire.read();
   Wire.endTransmission();
   registerValue = (registerValue/32)*4800;
@@ -18,7 +18,7 @@ int DS2782::_readCurrent(){
   Wire.beginTransmission(dsAddr);
   Wire.write(REG_CURRENT_DS);
   Wire.endTransmission();
-  Wire.requestFrom(Addr, 1, true);
+  Wire.requestFrom(dsAddr, 1, true);
   registerValue = Wire.read();
   Wire.endTransmission();
   registerValue = (registerValue*1563)/100;//100000
@@ -30,7 +30,7 @@ int DS2782::_readTemperature(){
   Wire.beginTransmission(dsAddr);
   Wire.write(REG_TEMPERATURE_DS);
   Wire.endTransmission();
-  Wire.requestFrom(Addr, 1, true);
+  Wire.requestFrom(dsAddr, 1, true);
   registerValue = Wire.read();
   Wire.endTransmission();
   //Serial.println(registerValue);
@@ -43,7 +43,7 @@ uint8_t DS2782::_readCapacity(){
   Wire.beginTransmission(dsAddr);
   Wire.write(REG_CURRENT_DS);
   Wire.endTransmission();
-  Wire.requestFrom(Addr, 1, true);
+  Wire.requestFrom(dsAddr, 1, true);
   registerValue = Wire.read();
   Wire.endTransmission();
   return registerValue;
