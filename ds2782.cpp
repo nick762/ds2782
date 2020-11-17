@@ -2,15 +2,15 @@
 #include "Arduino.h"
 
 int DS2782::_readVoltage(){
-  int8_t registerValue;
+  uint16_t registerValue;
   Wire.beginTransmission(dsAddr);
   Wire.write(REG_VOLTAGE_DS);
   Wire.endTransmission();
-  Wire.requestFrom(dsAddr, 1, true);
-  registerValue = Wire.read();
-  Wire.endTransmission();
-  registerValue = (registerValue/32)*4800;
-  return registerValue;
+  
+  Wire.requestFrom(dsAddr, 2, true);
+  registerValue = Wire.read()<<8;
+  registerValue |= Wire.read();
+  return((registerValue*4.88F)/8);
 }
 
 int DS2782::_readCurrent(){
