@@ -51,10 +51,10 @@ int DS2782::_readTemperature(){
 uint8_t DS2782::_readCapacity(){
   uint8_t registerValue;
   Wire.beginTransmission(dsAddr);
-  Wire.write(REG_CURRENT_DS);
+  Wire.write(REG_CAPACITY_DS);
   Wire.endTransmission();
+  
   Wire.requestFrom(dsAddr, 1, true);
   registerValue = Wire.read();
-  Wire.endTransmission();
   return registerValue;
 }
