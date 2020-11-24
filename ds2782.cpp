@@ -14,25 +14,24 @@ int DS2782::_readVoltage(){
 }
 
 int DS2782::_readCurrent(){
-  int sense_res;
   uint8_t sense_res_raw;
-  int16_t registerValue;
+  int raw;
+  int registerValue;
   Wire.beginTransmission(dsAddr);
   Wire.write(0x69);
   Wire.endTransmission();
   Wire.requestFrom(dsAddr, 1, true);
   sense_res_raw = Wire.read();
-  Wire.endTransmission();
-  sense_res = 1000 / sense_res_raw;
+  raw = 1000/sense_res_raw;
+  //не учитывается из за несовпадения реального установленного сопротивления и данных в EEPROM
   
   Wire.beginTransmission(dsAddr);
   Wire.write(REG_CURRENT_DS);
   Wire.endTransmission();
-  Wire.requestFrom(dsAddr, 1, true);
-  registerValue = Wire.read();
-  Wire.endTransmission();
-  registerValue = registerValue*(1563/sense_res);
-  return registerValue;
+  Wire.requestFrom(dsAddr, 2, true);
+  registerValue = Wire.read()<<8;
+  registerValue |= Wire.read();
+  return registerValue*0.1563F; 
 }
 
 int DS2782::_readTemperature(){
